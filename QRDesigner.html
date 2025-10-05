@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DRUGSBERRIES QR Sticker</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: #1a1a1a;
+            font-family: 'Arial Black', sans-serif;
+            padding: 20px;
+        }
+
+        .controls {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+            max-width: 500px;
+            width: 100%;
+        }
+
+        .control-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            color: white;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            border-radius: 8px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            cursor: pointer;
+        }
+
+        input[type="file"]::file-selector-button {
+            background: linear-gradient(45deg, #228822, #44cc44);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .sticker-container {
+            width: 500px;
+            height: 500px;
+            position: relative;
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .background {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            filter: blur(0px) brightness(0.8);
+        }
+
+        .background.placeholder {
+            background: linear-gradient(135deg, #1a4d1a, #2d7a2d, #1a4d1a);
+            background-size: 200% 200%;
+            animation: gradientShift 5s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .overlay {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 30% 50%, rgba(255,255,255,0.1) 0%, transparent 50%);
+            animation: shimmer 4s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.6; }
+        }
+
+        .content {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+            z-index: 2;
+        }
+
+        .qr-wrapper {
+            background: rgba(255, 255, 255, 0.98);
+            padding: 25px;
+            border-radius: 25px;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            position: relative;
+        }
+
+        .qr-container {
+            width: 280px;
+            height: 280px;
+            border-radius: 15px;
+            position: relative;
+            overflow: hidden;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #qrImage {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            image-rendering: pixelated;
+        }
+
+        .qr-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            color: #999;
+            font-size: 14px;
+            text-align: center;
+            padding: 20px;
+            border: 2px dashed #ddd;
+            border-radius: 10px;
+        }
+
+        .brand {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .brand-text {
+            font-size: 36px;
+            font-weight: 900;
+            color: white;
+            text-shadow: 
+                0 0 15px rgba(34, 136, 34, 0.8),
+                0 0 30px rgba(68, 204, 68, 0.6),
+                3px 3px 6px rgba(0, 0, 0, 0.8),
+                -1px -1px 0 #228822,
+                1px -1px 0 #228822,
+                -1px 1px 0 #228822,
+                1px 1px 0 #228822;
+            letter-spacing: 2px;
+            animation: glow 2s ease-in-out infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% { 
+                text-shadow: 
+                    0 0 15px rgba(34, 136, 34, 0.8),
+                    0 0 30px rgba(68, 204, 68, 0.6),
+                    3px 3px 6px rgba(0, 0, 0, 0.8),
+                    -1px -1px 0 #228822,
+                    1px -1px 0 #228822,
+                    -1px 1px 0 #228822,
+                    1px 1px 0 #228822;
+            }
+            50% { 
+                text-shadow: 
+                    0 0 25px rgba(34, 136, 34, 1),
+                    0 0 50px rgba(68, 204, 68, 0.8),
+                    3px 3px 6px rgba(0, 0, 0, 0.8),
+                    -1px -1px 0 #44cc44,
+                    1px -1px 0 #44cc44,
+                    -1px 1px 0 #44cc44,
+                    1px 1px 0 #44cc44;
+            }
+        }
+
+        .scan-text {
+            margin-top: 10px;
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.95);
+            text-shadow: 
+                0 2px 8px rgba(0, 0, 0, 0.8),
+                0 0 10px rgba(34, 136, 34, 0.5);
+            font-weight: bold;
+        }
+
+        .info {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 10px;
+            font-size: 14px;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(34, 136, 34, 0.5);
+        }
+
+        .download-btn {
+            margin-top: 20px;
+            padding: 15px 40px;
+            background: linear-gradient(45deg, #228822, #44cc44);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(34, 136, 34, 0.4);
+            transition: transform 0.2s;
+        }
+
+        .download-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 30px rgba(34, 136, 34, 0.6);
+        }
+
+        .download-btn:active {
+            transform: scale(0.95);
+        }
+
+        .tip {
+            margin-top: 15px;
+            color: #aaa;
+            font-size: 12px;
+            text-align: center;
+            max-width: 500px;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+    <div class="controls">
+        <div class="control-group">
+            <label>📱 Загрузи свой QR-код:</label>
+            <input type="file" id="qrInput" accept="image/*">
+        </div>
+        <div class="control-group">
+            <label>🍃 Загрузи фото для фона:</label>
+            <input type="file" id="bgInput" accept="image/*">
+        </div>
+    </div>
+
+    <div class="sticker-container" id="stickerContainer">
+        <div class="background placeholder" id="background"></div>
+        <div class="overlay"></div>
+        <div class="content">
+            <div class="qr-wrapper">
+                <div class="qr-container">
+                    <img id="qrImage" style="display: none;">
+                    <div class="qr-placeholder" id="placeholder">
+                        📱<br>
+                        Загрузи QR-код выше
+                    </div>
+                </div>
+            </div>
+            <div class="brand">
+                <div class="brand-text">DRUGSBERRIES</div>
+                <div class="scan-text">СКАНИРУЙ МЕНЯ</div>
+            </div>
+        </div>
+    </div>
+
+    <button class="download-btn" id="downloadBtn">💾 Скачать наклейку (PNG)</button>
+    <div class="tip">
+        💡 Совет: QR остается черно-белым для 100% читаемости.<br>
+    </div>
+
+    <script>
+        const qrInput = document.getElementById('qrInput');
+        const bgInput = document.getElementById('bgInput');
+        const qrImage = document.getElementById('qrImage');
+        const placeholder = document.getElementById('placeholder');
+        const background = document.getElementById('background');
+        const downloadBtn = document.getElementById('downloadBtn');
+
+        qrInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    qrImage.src = event.target.result;
+                    qrImage.style.display = 'block';
+                    placeholder.style.display = 'none';
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        bgInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    background.style.backgroundImage = `url('${event.target.result}')`;
+                    background.classList.remove('placeholder');
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        downloadBtn.addEventListener('click', async () => {
+            try {
+                const html2canvas = (await import('https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.esm.min.js')).default;
+                
+                const container = document.getElementById('stickerContainer');
+                const canvas = await html2canvas(container, {
+                    backgroundColor: null,
+                    scale: 3,
+                    useCORS: true,
+                    allowTaint: true
+                });
+                
+                const link = document.createElement('a');
+                link.download = 'drugsberries_sticker_5x5cm.png';
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+            } catch (error) {
+                alert('Упс! Сделай скриншот вручную: правой кнопкой мыши → Сохранить изображение');
+            }
+        });
+    </script>
+</body>
+</html>
