@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DrugsBerries</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: #000;
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .background-image {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+            opacity: 0.7;
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: -1;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+            z-index: 1;
+            padding: 20px;
+        }
+
+        .title {
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            text-shadow: 0 0 10px #0f0, 0 0 20px #0f0, 0 0 30px #0f0;
+            color: #fff;
+            letter-spacing: 2px;
+        }
+
+        .link-card {
+            background: rgba(0, 20, 0, 0.7);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.5);
+            border: 2px solid #0f0;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .link-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 25px rgba(0, 255, 0, 0.8);
+        }
+
+        .link-card h2 {
+            color: #0f0;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+            text-shadow: 0 0 5px #0f0;
+        }
+
+        .link-card p {
+            color: #ccc;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: transparent;
+            color: #0f0;
+            border: 2px solid #0f0;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            text-shadow: 0 0 5px #0f0;
+            box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+        }
+
+        .btn:hover {
+            background: rgba(0, 255, 0, 0.2);
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.7);
+            transform: scale(1.05);
+        }
+
+        .footer {
+            margin-top: 40px;
+            color: #0a0;
+            font-size: 0.8rem;
+            text-align: center;
+        }
+
+        @media (max-width: 480px) {
+            .title {
+                font-size: 2rem;
+            }
+            
+            .link-card {
+                padding: 20px;
+            }
+            
+            .btn {
+                padding: 10px 25px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Замените "background.jpg" на путь к вашему локальному изображению -->
+    <img src="background.jpg" alt="Фон" class="background-image">
+    <div class="overlay"></div>
+    
+    <div class="container">
+        <h1 class="title">DRUGSBERRIES</h1>
+        
+        <div class="link-card">
+            <h2>Основной бот</h2>
+            <p>Перейдите в нашего основного Telegram бота для получения всей необходимой информации и услуг.</p>
+            <a href="https://t.me/drugsberries_bot" class="btn">Перейти в бот</a>
+        </div>
+        
+        <div class="link-card">
+            <h2>Дополнительный бот</h2>
+            <p>Альтернативный Telegram бот с дополнительными функциями и возможностями.</p>
+            <a href="https://t.me/drugsberies_bot" class="btn">Перейти в бот</a>
+        </div>
+        
+        <div class="footer">
+            <p>© 2023 DrugsBerries. Все права защищены.</p>
+        </div>
+    </div>
+</body>
+</html>
